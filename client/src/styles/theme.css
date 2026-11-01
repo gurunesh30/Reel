@@ -1,0 +1,143 @@
+/* Cinema Theatre Booking System - Cinematic Design System & Theme Foundations */
+
+:root {
+  /* Color Palette Foundations */
+  --color-charcoal-bg: #0F1115;
+  --color-charcoal-surface: #16191E;
+  --color-charcoal-elevated: #1F232B;
+  --color-charcoal-border: #2A303C;
+  --color-charcoal-muted: #8E95A5;
+
+  --color-forest-dark: #1B3B2B;
+  --color-forest-primary: #26523C;
+  --color-forest-light: #346E52;
+  --color-forest-glow: rgba(38, 82, 60, 0.45);
+
+  --color-crimson-primary: #E63946;
+  --color-crimson-dark: #D62828;
+  --color-crimson-light: #FF4D5E;
+  --color-crimson-glow: rgba(230, 57, 70, 0.4);
+
+  --color-text-main: #F3F4F6;
+  --color-text-muted: #9CA3AF;
+  --color-text-dim: #6B7280;
+
+  /* Continuous Corners (Squircle Geometry) */
+  --squircle-xs: 6px;
+  --squircle-sm: 10px;
+  --squircle-md: 14px;
+  --squircle-lg: 20px;
+  --squircle-xl: 28px;
+  --squircle-full: 9999px;
+
+  /* Safe Area Insets */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Transitions & Springs */
+  --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Body Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-charcoal-bg);
+  color: var(--color-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Balanced Headlines */
+h1, h2, h3, h4, .balanced-text {
+  text-wrap: balance;
+}
+
+/* Ambient Radial Glow */
+.ambient-glow-forest {
+  background: radial-gradient(circle at 50% 30%, rgba(38, 82, 60, 0.35) 0%, rgba(15, 17, 21, 0) 70%);
+}
+
+.ambient-glow-crimson {
+  background: radial-gradient(circle at 50% 20%, rgba(230, 57, 70, 0.25) 0%, rgba(15, 17, 21, 0) 70%);
+}
+
+/* Hit Slop (12px invisible touch boundary) */
+.hit-slop-12 {
+  position: relative;
+}
+.hit-slop-12::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  left: -12px;
+  right: -12px;
+  pointer-events: auto;
+}
+
+/* Crosshatch Pattern for 'Held by Others' (Crimson Red) */
+.seat-crosshatch-crimson {
+  background-color: rgba(230, 57, 70, 0.15);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(230, 57, 70, 0.35),
+    rgba(230, 57, 70, 0.35) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  border: 1px solid var(--color-crimson-primary);
+  color: var(--color-crimson-primary);
+}
+
+/* Safe Area Inset Utility Classes */
+.safe-pad-top {
+  padding-top: calc(1rem + var(--safe-top));
+}
+
+.safe-pad-bottom {
+  padding-bottom: calc(1rem + var(--safe-bottom));
+}
+
+.safe-margin-bottom {
+  margin-bottom: var(--safe-bottom);
+}
+
+/* Squircle Curvature Utilities */
+.squircle-sm {
+  border-radius: var(--squircle-sm);
+}
+
+.squircle-md {
+  border-radius: var(--squircle-md);
+}
+
+.squircle-lg {
+  border-radius: var(--squircle-lg);
+}
+
+.squircle-xl {
+  border-radius: var(--squircle-xl);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-charcoal-border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-primary);
+}
