@@ -68,7 +68,7 @@ export function TimerBanner({ expiresAt, onExpire, selectedCount }: TimerBannerP
               <Clock className="w-4 h-4 text-white shrink-0" />
             )}
             <span>
-              {isUrgent ? 'Hurry! Seat hold expiring soon:' : `Holding ${selectedCount} seat${selectedCount > 1 ? 's' : ''} in Redis:`}
+              {isUrgent ? 'Hurry! Seat reservation expiring soon:' : `${selectedCount} seat${selectedCount > 1 ? 's' : ''} reserved for:`}
             </span>
           </div>
 

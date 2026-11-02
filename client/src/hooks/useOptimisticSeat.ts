@@ -134,8 +134,8 @@ export function useOptimisticSeat({
 
         const errorMsg =
           status === 409
-            ? `Seat ${targetSeat.row}${targetSeat.seatNumber} was just taken by another user!`
-            : 'Unable to hold seat. Please try again.';
+            ? `Seat ${targetSeat.row}${targetSeat.seatNumber} was just taken by another guest!`
+            : 'Unable to reserve seat. Please try again.';
 
         if (onConflict) {
           onConflict(seatId, errorMsg);

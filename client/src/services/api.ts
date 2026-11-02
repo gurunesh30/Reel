@@ -283,7 +283,7 @@ export const api = {
 
     const existing = activeSeatHolds.get(seatId);
     if (existing && existing.expiresAt > Date.now() && existing.userId !== userId) {
-      const err = new Error(`Seat ${seatId} was just locked by another guest!`);
+      const err = new Error(`This seat was just selected by another guest!`);
       (err as unknown as { status: number }).status = 409;
       throw err;
     }

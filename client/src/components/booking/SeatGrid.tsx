@@ -110,7 +110,7 @@ export function SeatGrid({
         expiresAt={holdExpiresAt}
         onExpire={() => {
           clearAllHolds();
-          triggerConflictAlert('Seat hold expired after 5 minutes. Please re-select your seats.');
+          triggerConflictAlert('Reservation session expired. Please re-select your seats.');
         }}
         selectedCount={selectedSeats.length}
       />
@@ -132,7 +132,7 @@ export function SeatGrid({
           </p>
         </div>
 
-        {/* Real-time SSE Live Indicator */}
+        {/* Live Seat Availability Indicator */}
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-medium">
           <span
             className={cn(
@@ -141,7 +141,7 @@ export function SeatGrid({
             )}
           />
           <span className="text-gray-300 hidden sm:inline">
-            {isConnected ? 'Live Sync Active' : 'Connecting...'}
+            {isConnected ? 'Live Availability' : 'Connecting...'}
           </span>
         </div>
       </header>
@@ -174,8 +174,8 @@ export function SeatGrid({
               </svg>
               {/* Soft ambient backlight */}
               <div className="absolute top-1 w-3/4 h-6 bg-[#26523C]/25 blur-xl -z-10 rounded-full" />
-              <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-gray-400 mt-1">
-                Screen Curved Visualizer
+              <span className="text-[11px] uppercase font-bold tracking-[0.3em] text-gray-400 mt-1">
+                CINEMA SCREEN
               </span>
             </div>
 
@@ -223,15 +223,15 @@ export function SeatGrid({
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-md bg-[#26523C] border border-emerald-400 shadow-[0_0_8px_#26523C]" />
-                <span className="text-emerald-300 font-semibold">Held by You</span>
+                <span className="text-emerald-300 font-semibold">Your Selection</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-md seat-crosshatch-crimson" />
-                <span className="text-[#E63946]">Held by Others (SSE)</span>
+                <span className="text-[#E63946]">Reserved</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-md bg-[#0F1115] border border-white/10 opacity-50" />
-                <span className="text-gray-500">Booked</span>
+                <span className="text-gray-500">Occupied</span>
               </div>
             </div>
           </div>
