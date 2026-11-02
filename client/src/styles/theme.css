@@ -13,10 +13,16 @@
   --color-forest-light: #346E52;
   --color-forest-glow: rgba(38, 82, 60, 0.45);
 
+  /* Enriched Crimson Red Highlights */
+  --color-crimson-deep: #9B111E;
+  --color-crimson-dark: #C1121F;
   --color-crimson-primary: #E63946;
-  --color-crimson-dark: #D62828;
   --color-crimson-light: #FF4D5E;
-  --color-crimson-glow: rgba(230, 57, 70, 0.4);
+  --color-crimson-bright: #FF334B;
+  --color-crimson-glow: rgba(230, 57, 70, 0.5);
+  --color-crimson-glow-strong: rgba(255, 51, 75, 0.7);
+  --gradient-crimson: linear-gradient(135deg, #FF4D5E 0%, #E63946 50%, #C1121F 100%);
+  --gradient-crimson-dark: linear-gradient(135deg, #E63946 0%, #C1121F 50%, #800F1A 100%);
 
   --color-text-main: #F3F4F6;
   --color-text-muted: #9CA3AF;
@@ -59,13 +65,57 @@ h1, h2, h3, h4, .balanced-text {
   text-wrap: balance;
 }
 
-/* Ambient Radial Glow */
+/* Ambient Radial Glows */
 .ambient-glow-forest {
   background: radial-gradient(circle at 50% 30%, rgba(38, 82, 60, 0.35) 0%, rgba(15, 17, 21, 0) 70%);
 }
 
 .ambient-glow-crimson {
-  background: radial-gradient(circle at 50% 20%, rgba(230, 57, 70, 0.25) 0%, rgba(15, 17, 21, 0) 70%);
+  background: radial-gradient(ellipse at 50% 20%, rgba(230, 57, 70, 0.32) 0%, rgba(193, 18, 31, 0.12) 45%, rgba(15, 17, 21, 0) 75%);
+}
+
+.ambient-glow-crimson-subtle {
+  background: radial-gradient(ellipse at 50% 0%, rgba(230, 57, 70, 0.18) 0%, rgba(15, 17, 21, 0) 65%);
+}
+
+/* Enhanced Crimson CTA Button */
+.btn-crimson {
+  background: linear-gradient(135deg, #FF4D5E 0%, #E63946 45%, #C1121F 100%);
+  box-shadow: 0 4px 20px rgba(230, 57, 70, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 77, 94, 0.4);
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-crimson:hover {
+  background: linear-gradient(135deg, #FF6675 0%, #FF334B 45%, #D62828 100%);
+  box-shadow: 0 6px 28px rgba(230, 57, 70, 0.58), 0 0 16px rgba(255, 77, 94, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-crimson:active {
+  transform: scale(0.98);
+}
+
+/* Crimson Glow Utilities */
+.glow-crimson {
+  box-shadow: 0 0 24px rgba(230, 57, 70, 0.45);
+}
+
+.glow-crimson-strong {
+  box-shadow: 0 0 32px rgba(230, 57, 70, 0.65), 0 0 12px rgba(255, 77, 94, 0.4);
+}
+
+.border-crimson-glow {
+  border: 1px solid rgba(230, 57, 70, 0.65);
+  box-shadow: 0 0 16px rgba(230, 57, 70, 0.35);
+}
+
+.text-crimson-gradient {
+  background: linear-gradient(135deg, #FF7B88 0%, #E63946 55%, #C1121F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Hit Slop (12px invisible touch boundary) */
@@ -82,18 +132,19 @@ h1, h2, h3, h4, .balanced-text {
   pointer-events: auto;
 }
 
-/* Crosshatch Pattern for 'Held by Others' (Crimson Red) */
+/* Enriched Crosshatch Pattern for Reserved Seats */
 .seat-crosshatch-crimson {
-  background-color: rgba(230, 57, 70, 0.15);
+  background-color: rgba(230, 57, 70, 0.12);
   background-image: repeating-linear-gradient(
     45deg,
-    rgba(230, 57, 70, 0.35),
-    rgba(230, 57, 70, 0.35) 2px,
-    transparent 2px,
-    transparent 6px
+    rgba(230, 57, 70, 0.45),
+    rgba(230, 57, 70, 0.45) 1.5px,
+    transparent 1.5px,
+    transparent 5.5px
   );
-  border: 1px solid var(--color-crimson-primary);
-  color: var(--color-crimson-primary);
+  border: 1px solid rgba(230, 57, 70, 0.85);
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.25);
+  color: #FF6675;
 }
 
 /* Safe Area Inset Utility Classes */
@@ -139,5 +190,5 @@ h1, h2, h3, h4, .balanced-text {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-forest-primary);
+  background: var(--color-crimson-primary);
 }

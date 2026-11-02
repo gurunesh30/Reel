@@ -55,11 +55,14 @@ export function ShowtimePill({
         'px-4 py-2.5 rounded-xl border transition-all duration-150 outline-none',
         isSelected
           ? 'bg-[#26523C] border-emerald-400 text-white shadow-lg shadow-[#26523C]/40 ring-2 ring-emerald-500/50'
-          : 'bg-[#1F232B] border-white/10 text-gray-200 hover:border-[#E63946] hover:bg-[#16191E] hover:shadow-[0_0_18px_rgba(230,57,70,0.35)]'
+          : 'bg-[#1F232B] border-white/10 text-gray-200 hover:border-[#E63946] hover:bg-[#16191E] hover:shadow-[0_0_22px_rgba(230,57,70,0.5),0_0_8px_rgba(255,77,94,0.35)] hover:text-white'
       )}
     >
+      {/* Top subtle crimson accent line on hover */}
+      <span className="absolute -top-px inset-x-3 h-0.5 bg-gradient-to-r from-transparent via-[#FF4D5E] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
+
       {/* Start Time */}
-      <span className="text-base font-bold tracking-tight text-white group-hover:text-white">
+      <span className="text-base font-bold tracking-tight text-white group-hover:text-red-100">
         {show.startTime}
       </span>
 
