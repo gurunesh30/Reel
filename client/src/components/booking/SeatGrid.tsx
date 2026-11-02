@@ -281,7 +281,7 @@ export function SeatGrid({
               <button
                 type="button"
                 onClick={() => onProceedToPayment(selectedSeats)}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-[#D62828] to-[#E63946] hover:from-[#E63946] hover:to-[#FF4D5E] text-white font-bold text-sm tracking-wide shadow-lg shadow-[#E63946]/30 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2"
+                className="btn-crimson w-full sm:w-auto px-7 py-3 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Proceed to Payment</span>
                 <ArrowRight className="w-4 h-4" />

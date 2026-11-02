@@ -39,6 +39,7 @@ import {
 import { usePrefetch } from './hooks/usePrefetch';
 import { MovieCard } from './components/catalog/MovieCard';
 import { ShowtimePill } from './components/catalog/ShowtimePill';
+import { HeroCarousel } from './components/catalog/HeroCarousel';
 import { SeatGrid } from './components/booking/SeatGrid';
 import { CommandMenu } from './components/shared/CommandMenu';
 import { AuthSheet } from './components/auth/AuthSheet';
@@ -287,87 +288,34 @@ export default function App() {
       {/* Main Content Router */}
       <div className="flex-grow">
         {/* ========================================================================= */}
-        {/* PAGE 1: LANDING & AUTHENTICATION (Hero Trailer Marquee)                  */}
+        {/* PAGE 1: LANDING & AUTHENTICATION (Hero Carousel)                         */}
         {/* ========================================================================= */}
         {currentPage === 'landing' && (
-          <section className="relative min-h-[90vh] flex flex-col justify-center px-4 sm:px-8 overflow-hidden ambient-glow-forest">
-            {/* Ambient Background Visual */}
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-              <img
-                src={MOCK_MOVIES[0].backdropUrl}
-                alt="Cinema backdrop"
-                className="w-full h-full object-cover opacity-25 filter blur-sm scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/85 to-transparent" />
-              <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#0F1115]/60 to-[#0F1115]" />
-            </div>
+          <section className="relative">
+            <HeroCarousel
+              movies={MOCK_MOVIES}
+              onSelectMovie={handleSelectMovie}
+              onExploreCatalog={() => setCurrentPage('discovery')}
+            />
 
-            <div className="max-w-5xl mx-auto w-full py-16 space-y-6">
-              {/* High Urgency Tag */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1B3B2B]/90 border border-emerald-500/30 text-emerald-300 text-xs font-bold tracking-wide shadow-lg">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                <span>IMAX LASER & DOLBY ATMOS PREMIERE</span>
-              </div>
-
-              {/* Hero Movie Title with Balanced Text */}
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white balanced-text leading-tight">
-                {MOCK_MOVIES[0].title}
-              </h1>
-
-              {/* Meta tags */}
-              <div className="flex flex-wrap items-center gap-3 text-sm text-gray-300">
-                <span className="px-2.5 py-0.5 rounded-md bg-white/10 font-bold text-xs">
-                  {MOCK_MOVIES[0].rating}
-                </span>
-                <span>•</span>
-                <span>{MOCK_MOVIES[0].durationMinutes} Mins</span>
-                <span>•</span>
-                <span>{MOCK_MOVIES[0].genre.join(', ')}</span>
-                <span>•</span>
-                <span className="text-amber-400 font-bold">★ {MOCK_MOVIES[0].imdbRating} IMDb</span>
-              </div>
-
-              {/* Description */}
-              <p className="max-w-2xl text-base sm:text-lg text-gray-300 leading-relaxed balanced-text">
-                {MOCK_MOVIES[0].description}
-              </p>
-
-              {/* CTA Action Row */}
-              <div className="pt-4 flex flex-wrap items-center gap-4">
-                <button
-                  onClick={() => handleSelectMovie(MOCK_MOVIES[0])}
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#D62828] to-[#E63946] hover:from-[#E63946] hover:to-[#FF4D5E] text-white font-extrabold text-base tracking-wide shadow-xl shadow-[#E63946]/30 transition-all duration-200 active:scale-95 flex items-center gap-3"
-                >
-                  <Ticket className="w-5 h-5" />
-                  <span>Book Tickets Now</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-
-                <button
-                  onClick={() => setCurrentPage('discovery')}
-                  className="px-6 py-4 rounded-2xl bg-[#16191E] hover:bg-[#1F232B] border border-white/10 text-white font-bold text-base transition-colors"
-                >
-                  Explore All Movies
-                </button>
-              </div>
-
-              {/* Feature Matrix Badges */}
-              <div className="pt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10">
-                <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
-                  <span className="text-xs text-gray-400 block">Screen Format</span>
-                  <span className="text-sm font-bold text-white">IMAX with Laser</span>
+            {/* Experience Highlights Matrix */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#E63946]/40 transition-colors">
+                  <span className="text-xs text-gray-400 block font-medium">Screen Format</span>
+                  <span className="text-sm font-bold text-white mt-0.5 block">IMAX with Laser & 3D</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
-                  <span className="text-xs text-gray-400 block">Spatial Sound</span>
-                  <span className="text-sm font-bold text-emerald-400">Dolby Atmos 128Ch</span>
+                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-emerald-500/40 transition-colors">
+                  <span className="text-xs text-gray-400 block font-medium">Spatial Sound</span>
+                  <span className="text-sm font-bold text-emerald-400 mt-0.5 block">Dolby Atmos 128Ch</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
-                  <span className="text-xs text-gray-400 block">Seat Reservation</span>
-                  <span className="text-sm font-bold text-white">Instant Selection</span>
+                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#E63946]/40 transition-colors">
+                  <span className="text-xs text-gray-400 block font-medium">Seating Comfort</span>
+                  <span className="text-sm font-bold text-white mt-0.5 block">VIP Premium Recliners</span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
-                  <span className="text-xs text-gray-400 block">Payment Security</span>
-                  <span className="text-sm font-bold text-white">256-Bit SSL Encrypted</span>
+                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-emerald-500/40 transition-colors">
+                  <span className="text-xs text-gray-400 block font-medium">Payment Protection</span>
+                  <span className="text-sm font-bold text-white mt-0.5 block">256-Bit SSL Encrypted</span>
                 </div>
               </div>
             </div>
@@ -728,7 +676,7 @@ export default function App() {
                 type="button"
                 disabled={isProcessingPayment}
                 onClick={handleExecutePayment}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D62828] to-[#E63946] hover:from-[#E63946] hover:to-[#FF4D5E] disabled:opacity-50 text-white font-extrabold text-base tracking-wide shadow-xl shadow-[#E63946]/30 transition-all duration-150 active:scale-95 flex items-center justify-center gap-2"
+                className="btn-crimson w-full py-4 rounded-xl disabled:opacity-50 text-white font-extrabold text-base tracking-wide flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isProcessingPayment ? (
                   <>
