@@ -363,11 +363,11 @@ export default function App() {
                 </div>
                 <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
                   <span className="text-xs text-gray-400 block">Seat Reservation</span>
-                  <span className="text-sm font-bold text-white">Live Redis Hold</span>
+                  <span className="text-sm font-bold text-white">Instant Selection</span>
                 </div>
                 <div className="p-3 rounded-xl bg-[#16191E]/60 border border-white/5">
                   <span className="text-xs text-gray-400 block">Payment Security</span>
-                  <span className="text-sm font-bold text-white">Idempotent Commit</span>
+                  <span className="text-sm font-bold text-white">256-Bit SSL Encrypted</span>
                 </div>
               </div>
             </div>
@@ -613,7 +613,7 @@ export default function App() {
             <div className="rounded-3xl bg-[#16191E] border border-white/10 p-6 sm:p-8 space-y-6 shadow-2xl">
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-[#E63946]">
-                  Page 5: Checkout & Final Authorization
+                  Final Step
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-white mt-1 balanced-text">
                   Order Summary & Payment
@@ -647,11 +647,11 @@ export default function App() {
                   </span>
                 </div>
                 <div className="flex justify-between text-xs text-gray-400">
-                  <span>Integrated Cinema Tax (8%)</span>
+                  <span>Cinema Tax (8%)</span>
                   <span>${(selectedSeats.reduce((sum, s) => sum + s.price, 0) * 0.08).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-xs text-gray-400">
-                  <span>Convenience & Real-time Hold Fee</span>
+                  <span>Convenience & Booking Fee</span>
                   <span>$2.50</span>
                 </div>
                 <div className="border-t border-white/10 pt-3 flex justify-between items-center text-lg font-black text-white">
@@ -666,13 +666,13 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Idempotency Token Info Box */}
-              <div className="p-3 rounded-xl bg-[#1B3B2B]/40 border border-emerald-500/20 text-xs text-emerald-300 flex items-center justify-between font-mono">
-                <div className="flex items-center gap-2">
+              {/* Verified Secure Checkout Badge */}
+              <div className="p-3.5 rounded-xl bg-[#1B3B2B]/30 border border-emerald-500/20 text-xs text-emerald-300 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Idempotency Key: {idempotencyKey.substring(0, 18)}...</span>
+                  <span className="font-medium">Guaranteed Ticket Protection & SSL Encrypted Checkout</span>
                 </div>
-                <span className="text-[10px] uppercase font-bold text-emerald-400">Unique Lock</span>
+                <span className="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">Verified</span>
               </div>
 
               {/* Payment Method Selector */}
@@ -733,7 +733,7 @@ export default function App() {
                 {isProcessingPayment ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Processing ACID Transaction...</span>
+                    <span>Confirming Your Tickets...</span>
                   </>
                 ) : (
                   <>
@@ -764,7 +764,7 @@ export default function App() {
               </div>
               <h2 className="text-3xl font-extrabold text-white balanced-text">Booking Confirmed!</h2>
               <p className="text-sm text-gray-400">
-                Your seats are permanently booked in PostgreSQL. Entry pass is ready.
+                Your seats are confirmed. Your digital cinema pass is ready below.
               </p>
             </div>
 
@@ -822,7 +822,7 @@ export default function App() {
                     {receipt.qrCodeData}
                   </span>
                   <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">
-                    Scan at Cinema Turnstile for Entry
+                    Scan at cinema entrance for admission
                   </span>
                 </div>
               </div>
@@ -855,14 +855,14 @@ export default function App() {
       {currentPage !== 'seats' && (
         <footer className="w-full border-t border-white/5 py-6 px-4 text-center text-xs text-gray-500 mt-auto safe-pad-bottom">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <span>© 2026 Reel Cinema Systems. Unified Cinematic UI Architecture.</span>
+            <span>© 2026 Reel Cinema. All rights reserved.</span>
             <div className="flex items-center gap-4 text-gray-400">
-              <span>Charcoal Black • Forest Green • Crimson Red</span>
+              <span>Premium Cinematic Experience</span>
               <button
                 onClick={() => setIsCommandMenuOpen(true)}
                 className="hover:text-white underline underline-offset-2"
               >
-                Cmd+K Palette
+                Quick Search (Cmd+K)
               </button>
             </div>
           </div>
