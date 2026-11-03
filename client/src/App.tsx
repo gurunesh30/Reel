@@ -208,21 +208,21 @@ export default function App() {
 
       {/* Global Sticky Navigation Bar (Pages 1-3 & 5) */}
       {currentPage !== 'seats' && (
-        <nav className="sticky top-0 z-40 w-full glass-panel border-b border-white/10 px-4 py-3 sm:px-6">
+        <nav className="sticky top-0 z-40 w-full glass-panel border-b border-[#26523C]/50 px-4 py-3 sm:px-6 bg-[#0F1115]/90 backdrop-blur-md shadow-[0_4px_20px_rgba(38,82,60,0.15)]">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             {/* Branding Logo */}
             <div
               onClick={() => setCurrentPage('landing')}
               className="flex items-center gap-2.5 cursor-pointer select-none group"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#D62828] to-[#E63946] flex items-center justify-center shadow-lg shadow-[#E63946]/30 group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#D62828] to-[#E63946] flex items-center justify-center shadow-lg shadow-[#E63946]/30 group-hover:scale-105 transition-transform border border-emerald-500/30">
                 <Film className="w-5 h-5 text-white" />
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-black tracking-wider text-white uppercase group-hover:text-red-400 transition-colors">
                   REEL<span className="text-[#E63946]">.</span>
                 </span>
-                <span className="text-[9px] uppercase tracking-widest text-gray-400 -mt-1 font-semibold">
+                <span className="text-[9px] uppercase tracking-widest text-emerald-400/90 -mt-1 font-semibold">
                   Cinema Experience
                 </span>
               </div>
@@ -233,8 +233,8 @@ export default function App() {
               <button
                 onClick={() => setCurrentPage('landing')}
                 className={cn(
-                  'transition-colors hover:text-white',
-                  currentPage === 'landing' ? 'text-white border-b-2 border-[#26523C] pb-0.5' : ''
+                  'transition-colors hover:text-emerald-300',
+                  currentPage === 'landing' ? 'text-emerald-400 border-b-2 border-emerald-500 pb-0.5 font-bold shadow-[0_2px_10px_rgba(16,185,129,0.3)]' : ''
                 )}
               >
                 Featured
@@ -242,8 +242,8 @@ export default function App() {
               <button
                 onClick={() => setCurrentPage('discovery')}
                 className={cn(
-                  'transition-colors hover:text-white',
-                  currentPage === 'discovery' ? 'text-white border-b-2 border-[#26523C] pb-0.5' : ''
+                  'transition-colors hover:text-emerald-300',
+                  currentPage === 'discovery' ? 'text-emerald-400 border-b-2 border-emerald-500 pb-0.5 font-bold shadow-[0_2px_10px_rgba(16,185,129,0.3)]' : ''
                 )}
               >
                 Now Showing
@@ -252,10 +252,10 @@ export default function App() {
 
             {/* Right Controls: City Pill + Cmd+K + Auth */}
             <div className="flex items-center gap-2.5">
-              {/* City Pill */}
+              {/* City Pill with Forest Green Glow */}
               <button
                 onClick={() => setIsCommandMenuOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#16191E] border border-white/10 hover:border-[#26523C] text-xs font-semibold text-gray-200 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1B3B2B]/80 border border-emerald-500/50 hover:border-emerald-400 text-xs font-semibold text-emerald-200 shadow-[0_0_14px_rgba(16,185,129,0.2)] transition-all"
               >
                 <Compass className="w-3.5 h-3.5 text-emerald-400" />
                 <span>{activeCity}</span>
@@ -264,7 +264,7 @@ export default function App() {
               {/* Command Menu Shortcut Trigger (Cmd+K) */}
               <button
                 onClick={() => setIsCommandMenuOpen(true)}
-                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-gray-400 hover:text-white transition-colors"
+                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-[#1B3B2B]/40 border border-white/10 hover:border-emerald-500/40 text-xs text-gray-400 hover:text-emerald-200 transition-colors"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span className="font-mono text-[11px] bg-white/10 px-1.5 py-0.5 rounded text-gray-300">
@@ -275,7 +275,7 @@ export default function App() {
               {/* User Account / Sign In */}
               <button
                 onClick={() => setIsAuthOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#26523C]/50 hover:bg-[#26523C] text-white border border-emerald-500/30 text-xs font-bold transition-all duration-150 active:scale-95"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#26523C] hover:bg-[#2D6A4F] text-white border border-emerald-400/50 text-xs font-bold shadow-[0_0_14px_rgba(45,106,79,0.4)] transition-all duration-150 active:scale-95"
               >
                 <User className="w-3.5 h-3.5 text-emerald-300" />
                 <span className="hidden sm:inline">{currentUser.name.split(' ')[0]}</span>
@@ -346,7 +346,7 @@ export default function App() {
                   placeholder="Filter movies by title or keyword..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#16191E] border border-white/10 text-sm text-white placeholder-gray-500 focus:border-[#26523C] outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#16191E] border border-white/10 text-sm text-white placeholder-gray-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 outline-none transition-all shadow-inner"
                 />
               </div>
             </div>
@@ -359,10 +359,10 @@ export default function App() {
                     key={genre}
                     onClick={() => setSelectedGenre(genre)}
                     className={cn(
-                      'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-150 shrink-0',
+                      'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 shrink-0',
                       selectedGenre === genre
-                        ? 'bg-[#26523C] text-white shadow-md shadow-[#26523C]/40 border border-emerald-500/40'
-                        : 'bg-[#16191E] text-gray-400 hover:text-white hover:bg-[#1F232B] border border-white/5'
+                        ? 'bg-[#2D6A4F] text-white shadow-lg shadow-[#2D6A4F]/40 border border-emerald-400/60 scale-105'
+                        : 'bg-[#16191E] text-gray-400 hover:text-white hover:bg-[#1B3B2B]/40 border border-white/5 hover:border-emerald-500/20'
                     )}
                   >
                     {genre}
@@ -464,10 +464,10 @@ export default function App() {
                       key={item.iso}
                       onClick={() => setSelectedDate(item.iso)}
                       className={cn(
-                        'flex flex-col items-center justify-center px-4 py-3 rounded-2xl min-w-[76px] transition-all duration-150',
+                        'flex flex-col items-center justify-center px-4 py-3 rounded-2xl min-w-[76px] transition-all duration-200',
                         isActive
-                          ? 'bg-[#26523C] text-white shadow-lg shadow-[#26523C]/40 border border-emerald-500/50 scale-105'
-                          : 'bg-[#16191E] border border-white/5 text-gray-400 hover:text-white hover:bg-[#1F232B]'
+                          ? 'bg-gradient-to-b from-[#2D6A4F] to-[#1B3B2B] text-white shadow-lg shadow-[#2D6A4F]/50 border-2 border-emerald-400 scale-105'
+                          : 'bg-[#16191E] border border-white/5 text-gray-400 hover:text-white hover:bg-[#1B3B2B]/30 hover:border-emerald-500/20'
                       )}
                     >
                       <span className="text-[10px] font-bold tracking-wider uppercase opacity-80">

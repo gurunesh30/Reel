@@ -43,7 +43,7 @@ export function MovieCard({
       onMouseEnter={handleMouseEnter}
       onFocus={handleMouseEnter}
       onClick={() => onSelect(movie)}
-      className="group flex flex-col rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#26523C] hover:shadow-[0_12px_32px_rgba(38,82,60,0.3)] transition-colors duration-200 cursor-pointer overflow-hidden relative"
+      className="group flex flex-col rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#2D6A4F] hover:shadow-[0_14px_36px_rgba(45,106,79,0.35)] transition-all duration-200 cursor-pointer overflow-hidden relative"
     >
       {/* Poster Media Box with Blurhash Placeholder */}
       <div className="relative w-full aspect-[2/3] overflow-hidden bg-[#0F1115]">
@@ -91,7 +91,7 @@ export function MovieCard({
       {/* Card Content & Details */}
       <div className="flex flex-col flex-grow p-4 -mt-6 z-10 space-y-2.5">
         {/* Movie Title with Balanced Text */}
-        <h3 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-1 balanced-text">
+        <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-1 balanced-text">
           {movie.title}
         </h3>
 
@@ -110,7 +110,7 @@ export function MovieCard({
           {movie.formats.map((fmt) => (
             <span
               key={fmt}
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-gray-300"
+              className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#1B3B2B]/60 border border-emerald-500/30 text-emerald-300 shadow-sm"
             >
               {fmt}
             </span>
