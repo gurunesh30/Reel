@@ -8,10 +8,17 @@
   --color-charcoal-border: #2A303C;
   --color-charcoal-muted: #8E95A5;
 
+  /* Enriched Forest Green & Emerald Palette */
+  --color-forest-deep: #0D2818;
   --color-forest-dark: #1B3B2B;
   --color-forest-primary: #26523C;
-  --color-forest-light: #346E52;
-  --color-forest-glow: rgba(38, 82, 60, 0.45);
+  --color-forest-vibrant: #2D6A4F;
+  --color-forest-emerald: #10B981;
+  --color-forest-light: #34D399;
+  --color-forest-glow: rgba(45, 106, 79, 0.45);
+  --color-forest-glow-strong: rgba(16, 185, 129, 0.55);
+  --gradient-forest: linear-gradient(135deg, #10B981 0%, #2D6A4F 50%, #1B3B2B 100%);
+  --gradient-forest-surface: linear-gradient(135deg, rgba(45, 106, 79, 0.25) 0%, rgba(27, 59, 43, 0.15) 100%);
 
   /* Enriched Crimson Red Highlights */
   --color-crimson-deep: #9B111E;
@@ -67,7 +74,15 @@ h1, h2, h3, h4, .balanced-text {
 
 /* Ambient Radial Glows */
 .ambient-glow-forest {
-  background: radial-gradient(circle at 50% 30%, rgba(38, 82, 60, 0.35) 0%, rgba(15, 17, 21, 0) 70%);
+  background: radial-gradient(circle at 50% 30%, rgba(38, 82, 60, 0.45) 0%, rgba(16, 185, 129, 0.12) 40%, rgba(15, 17, 21, 0) 75%);
+}
+
+.ambient-glow-forest-intense {
+  background: radial-gradient(ellipse at 50% 25%, rgba(16, 185, 129, 0.28) 0%, rgba(45, 106, 79, 0.42) 35%, rgba(15, 17, 21, 0) 75%);
+}
+
+.ambient-glow-forest-deck {
+  background: radial-gradient(circle at 65% 50%, rgba(45, 106, 79, 0.45) 0%, rgba(27, 59, 43, 0.22) 50%, transparent 80%);
 }
 
 .ambient-glow-crimson {
@@ -76,6 +91,37 @@ h1, h2, h3, h4, .balanced-text {
 
 .ambient-glow-crimson-subtle {
   background: radial-gradient(ellipse at 50% 0%, rgba(230, 57, 70, 0.18) 0%, rgba(15, 17, 21, 0) 65%);
+}
+
+/* Forest Green Glow & Card Utilities */
+.glow-forest {
+  box-shadow: 0 0 24px rgba(45, 106, 79, 0.5);
+}
+
+.glow-forest-strong {
+  box-shadow: 0 0 32px rgba(45, 106, 79, 0.65), 0 0 12px rgba(16, 185, 129, 0.45);
+}
+
+.border-forest-glow {
+  border: 1px solid rgba(16, 185, 129, 0.55);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+}
+
+.card-forest-glass {
+  background: rgba(22, 25, 30, 0.85);
+  border: 1px solid rgba(45, 106, 79, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(16, 185, 129, 0.15);
+}
+
+.card-forest-glass:hover {
+  border-color: rgba(16, 185, 129, 0.65);
+  box-shadow: 0 12px 35px rgba(45, 106, 79, 0.35), inset 0 1px 0 rgba(16, 185, 129, 0.25);
+}
+
+.badge-forest {
+  background: rgba(27, 59, 43, 0.75);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
 }
 
 /* Enhanced Crimson CTA Button */
