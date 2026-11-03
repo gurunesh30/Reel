@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Movie } from '../../services/api';
 import { cn } from '../../utils/cn';
+import { StackedCardDeck } from './StackedCardDeck';
 
 interface HeroCarouselProps {
   movies: Movie[];
@@ -107,10 +108,11 @@ export function HeroCarousel({
           </motion.div>
         </AnimatePresence>
 
-        {/* Ambient Crimson and Charcoal Lighting Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/60 to-transparent" />
-        <div className="absolute inset-0 ambient-glow-crimson pointer-events-none opacity-60" />
+        {/* Ambient Crimson and Forest Green Lighting Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/85 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/65 to-transparent" />
+        <div className="absolute inset-0 ambient-glow-crimson pointer-events-none opacity-40" />
+        <div className="absolute top-1/4 right-12 w-96 h-96 rounded-full bg-emerald-500/15 blur-[120px] pointer-events-none" />
       </div>
 
       {/* 2. Main Hero Slide Content */}
@@ -203,32 +205,19 @@ export function HeroCarousel({
             </AnimatePresence>
           </div>
 
-          {/* Right Column: Floating Poster Showcase */}
-          <div className="hidden lg:flex lg:col-span-4 justify-center items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentMovie.id}
-                initial={{ opacity: 0, scale: 0.9, rotateY: 12 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                exit={{ opacity: 0, scale: 0.9, rotateY: -12 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => onSelectMovie(currentMovie)}
-                className="group relative w-64 aspect-[2/3] rounded-3xl overflow-hidden cursor-pointer shadow-2xl border-2 border-white/10 hover:border-[#E63946] hover:shadow-[0_0_35px_rgba(230,57,70,0.5)] transition-all duration-300"
-              >
-                <img
-                  src={currentMovie.posterUrl}
-                  alt={currentMovie.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-bold">
-                  <span className="text-white drop-shadow">Click to Select</span>
-                  <span className="text-[#FF4D5E] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Reserve →
-                  </span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          {/* Right Column: Interactive 3D Stacked Card Deck */}
+          <div className="flex justify-center items-center lg:col-span-4 w-full">
+            <StackedCardDeck
+              movies={movies}
+              currentIndex={currentIndex}
+              onSelectMovie={onSelectMovie}
+              onNavigateToIndex={(idx) => {
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
+              onNext={handleNext}
+              onPrev={handlePrev}
+            />
           </div>
         </div>
       </div>
@@ -242,7 +231,7 @@ export function HeroCarousel({
               type="button"
               onClick={handlePrev}
               aria-label="Previous movie"
-              className="p-2.5 rounded-xl bg-[#16191E] border border-white/10 text-gray-300 hover:text-white hover:border-[#E63946] hover:shadow-[0_0_15px_rgba(230,57,70,0.4)] transition-all active:scale-95"
+              className="p-2.5 rounded-xl bg-[#16191E] border border-white/10 text-gray-300 hover:text-white hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(45,106,79,0.5)] transition-all active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -250,12 +239,12 @@ export function HeroCarousel({
               type="button"
               onClick={handleNext}
               aria-label="Next movie"
-              className="p-2.5 rounded-xl bg-[#16191E] border border-white/10 text-gray-300 hover:text-white hover:border-[#E63946] hover:shadow-[0_0_15px_rgba(230,57,70,0.4)] transition-all active:scale-95"
+              className="p-2.5 rounded-xl bg-[#16191E] border border-white/10 text-gray-300 hover:text-white hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(45,106,79,0.5)] transition-all active:scale-95"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
             <span className="text-xs text-gray-400 font-mono ml-2">
-              <span className="text-white font-bold">{currentIndex + 1}</span> / {movies.length}
+              <span className="text-emerald-400 font-bold">{currentIndex + 1}</span> / {movies.length}
             </span>
           </div>
 
@@ -274,8 +263,8 @@ export function HeroCarousel({
                   className={cn(
                     'flex items-center gap-2.5 px-3 py-1.5 rounded-xl transition-all duration-200 text-left shrink-0',
                     isActive
-                      ? 'bg-[#16191E] border-2 border-[#E63946] shadow-[0_0_16px_rgba(230,57,70,0.4)] scale-105'
-                      : 'bg-white/5 border border-white/5 opacity-60 hover:opacity-100 hover:bg-white/10'
+                      ? 'bg-gradient-to-r from-[#1B3B2B] to-[#2D6A4F]/80 border-2 border-emerald-400 shadow-[0_0_16px_rgba(45,106,79,0.5)] scale-105'
+                      : 'bg-white/5 border border-white/5 opacity-60 hover:opacity-100 hover:bg-[#1B3B2B]/30 hover:border-emerald-500/30'
                   )}
                 >
                   <img

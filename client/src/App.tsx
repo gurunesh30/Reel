@@ -301,21 +301,40 @@ export default function App() {
             {/* Experience Highlights Matrix */}
             <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#E63946]/40 transition-colors">
-                  <span className="text-xs text-gray-400 block font-medium">Screen Format</span>
-                  <span className="text-sm font-bold text-white mt-0.5 block">IMAX with Laser & 3D</span>
+                <div className="card-forest-glass p-5 rounded-2xl group hover:border-emerald-400/60 transition-all shadow-lg hover:shadow-[0_8px_24px_rgba(45,106,79,0.25)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-[11px] text-emerald-300 font-extrabold tracking-wider uppercase">Screen Format</span>
+                  </div>
+                  <span className="text-sm font-black text-white block">IMAX Laser & 3D RealD</span>
+                  <span className="text-[11px] text-gray-400 mt-1 block">Ultra dynamic contrast</span>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-emerald-500/40 transition-colors">
-                  <span className="text-xs text-gray-400 block font-medium">Spatial Sound</span>
-                  <span className="text-sm font-bold text-emerald-400 mt-0.5 block">Dolby Atmos 128Ch</span>
+
+                <div className="card-forest-glass p-5 rounded-2xl group hover:border-emerald-400/60 transition-all shadow-lg hover:shadow-[0_8px_24px_rgba(45,106,79,0.25)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Film className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-[11px] text-emerald-300 font-extrabold tracking-wider uppercase">Spatial Sound</span>
+                  </div>
+                  <span className="text-sm font-black text-white block">Dolby Atmos 128Ch</span>
+                  <span className="text-[11px] text-gray-400 mt-1 block">360-degree object audio</span>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-[#E63946]/40 transition-colors">
-                  <span className="text-xs text-gray-400 block font-medium">Seating Comfort</span>
-                  <span className="text-sm font-bold text-white mt-0.5 block">VIP Premium Recliners</span>
+
+                <div className="card-forest-glass p-5 rounded-2xl group hover:border-emerald-400/60 transition-all shadow-lg hover:shadow-[0_8px_24px_rgba(45,106,79,0.25)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Ticket className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-[11px] text-emerald-300 font-extrabold tracking-wider uppercase">Seating Comfort</span>
+                  </div>
+                  <span className="text-sm font-black text-white block">VIP Plush Recliners</span>
+                  <span className="text-[11px] text-gray-400 mt-1 block">Dual-motor acoustic design</span>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#16191E] border border-white/10 hover:border-emerald-500/40 transition-colors">
-                  <span className="text-xs text-gray-400 block font-medium">Payment Protection</span>
-                  <span className="text-sm font-bold text-white mt-0.5 block">256-Bit SSL Encrypted</span>
+
+                <div className="card-forest-glass p-5 rounded-2xl group hover:border-emerald-400/60 transition-all shadow-lg hover:shadow-[0_8px_24px_rgba(45,106,79,0.25)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                    <span className="text-[11px] text-emerald-300 font-extrabold tracking-wider uppercase">Protected Booking</span>
+                  </div>
+                  <span className="text-sm font-black text-white block">256-Bit SSL Encrypted</span>
+                  <span className="text-[11px] text-gray-400 mt-1 block">Instant QR mobile pass</span>
                 </div>
               </div>
             </div>
