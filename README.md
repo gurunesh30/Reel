@@ -493,7 +493,6 @@ Before opening a PR, ensure the following checks are complete:
 - [ ] Code builds without errors (`npm run build`).
 - [ ] TypeScript compiler checks pass without warnings (`npx tsc --noEmit`).
 - [ ] No extraneous debug logs, commented-out dead code, or temporary artifacts left behind.
-- [ ] Changes adhere to the Karpathy Surgical Changes guideline (only touched necessary files).
 - [ ] Commit history is clean and follows the Conventional Commits format.
 
 ---
