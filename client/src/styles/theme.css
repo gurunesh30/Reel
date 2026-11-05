@@ -238,3 +238,85 @@ h1, h2, h3, h4, .balanced-text {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-crimson-primary);
 }
+
+/* Flowing Dark Crimson Background System */
+@keyframes crimson-flow-mesh {
+  0% {
+    background-position: 0% 20%;
+  }
+  50% {
+    background-position: 100% 80%;
+  }
+  100% {
+    background-position: 0% 20%;
+  }
+}
+
+@keyframes crimson-orb-drift-1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(70px, -45px) scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+@keyframes crimson-orb-drift-2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(-65px, 50px) scale(1.2);
+    opacity: 0.75;
+  }
+}
+
+@keyframes crimson-orb-drift-3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1.05);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(50px, 55px) scale(0.92);
+    opacity: 0.7;
+  }
+}
+
+.bg-crimson-flow-canvas {
+  background: 
+    radial-gradient(ellipse 90% 60% at 15% 15%, rgba(155, 17, 30, 0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 85% 55% at 85% 85%, rgba(193, 18, 31, 0.38) 0%, transparent 55%),
+    radial-gradient(circle 800px at 50% 40%, rgba(90, 12, 19, 0.5) 0%, transparent 70%),
+    linear-gradient(180deg, #0C0305 0%, #11070A 35%, #0B0D12 70%, #08090C 100%);
+  background-size: 200% 200%;
+  animation: crimson-flow-mesh 20s ease-in-out infinite;
+}
+
+.ambient-flow-crimson-1 {
+  animation: crimson-orb-drift-1 16s ease-in-out infinite;
+}
+
+.ambient-flow-crimson-2 {
+  animation: crimson-orb-drift-2 20s ease-in-out infinite;
+}
+
+.ambient-flow-crimson-3 {
+  animation: crimson-orb-drift-3 18s ease-in-out infinite;
+}
+
+.card-crimson-glass {
+  background: rgba(22, 12, 15, 0.82);
+  border: 1px solid rgba(230, 57, 70, 0.3);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(193, 18, 31, 0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.card-crimson-glass:hover {
+  border-color: rgba(255, 77, 94, 0.6);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(230, 57, 70, 0.35);
+}
+

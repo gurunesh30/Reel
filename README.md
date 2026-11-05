@@ -202,9 +202,11 @@ The visual styling is anchored in a high-contrast dark aesthetic combining deep 
 
 ---
 
-## 🧭 End-to-End Walkthrough & User Journey
+## 🧭 End-to-End Walkthrough & Route Architecture
 
-### Page 1: Landing Premiere & 3D Stacked Card Deck
+The application is structured into distinct, deep-linkable client routes powered by React Router:
+
+### Route 1: `/home` — Landing Premiere & Movie Discovery
 * **Cinematic Hero**: Full-viewport marquee featuring high-res movie backdrops, dynamic format badges (IMAX, 3D, Dolby Atmos), and crimson primary CTAs.
 * **3D Stacked Card Deck**:
   - Displays a layered deck of up to 4 upcoming movies behind the active card with depth scaling (`scale: 1 - index * 0.055`) and vertical stacking (`y: index * 18px`).
@@ -212,22 +214,12 @@ The visual styling is anchored in a high-contrast dark aesthetic combining deep 
   - **Pinch-to-Zoom**: Two-finger pinch gesture on mobile devices smoothly zooms the active card.
   - **Interactive Badges**: Real-time `"NEXT"` and `"PREV"` direction pills reveal dynamically during drag maneuvers.
 * **Experience Highlights**: Glassmorphic cards highlighting screen format, spatial audio, plush recliners, and encrypted payment guarantees.
+* **Catalog Matrix**: Debounced search and genre filter pills (`Sci-Fi`, `Action`, `Cyberpunk`, `Mystery`, `Drama`) with hover prefetching.
 
-### Page 2: Movie Discovery & Catalog Matrix
-* **Global Navigation**: Location detector displaying current city, quick city switcher modal, and `Cmd+K` command menu trigger.
-* **Filter Strip**: Interactive genre filter tags (`All`, `Sci-Fi`, `Action`, `Cyberpunk`, `Mystery`, `Drama`) with emerald active highlights.
-* **Movie Matrix**:
-  - High-res poster art with Blurhash image fallbacks.
-  - Formats pills (`IMAX 3D`, `Dolby Atmos`, `4DX`, `ScreenX`).
-  - Automatic hover prefetching of theater schedules.
-
-### Page 3: Show Selection Matrix
+### Route 2: `/booking` — Showtimes & Real-Time Seat Selection Grid
 * **Movie Summary Banner**: Compact top summary card displaying movie duration, language, genre, and rating.
 * **Horizontal 7-Day Date Selector**: Scrollable date strip with day names, day numbers, and month indicators; the active day is highlighted in forest green.
 * **Theater Proximity Accordion**: Shows grouped by local theater venues with distance indicators (e.g. `1.8 km away`) and screen format pills.
-
-### Page 4: Real-Time Seat Selection Grid
-* **Curved Screen Visualizer**: Architectural top screen bar rendered in SVG with glowing ambient projection lighting.
 * **Interactive 4-State Seat Grid**:
   1. **Available**: Forest green border with charcoal fill.
   2. **Held by You**: Solid emerald/forest green with glowing outline.
@@ -236,13 +228,21 @@ The visual styling is anchored in a high-contrast dark aesthetic combining deep 
 * **5-Minute Hold Countdown**: Sticky timer banner tracking the active Redis hold TTL.
 * **Touch Hit Slop**: $12\text{px}$ expanded touch zones preventing mis-clicks on mobile touchscreens.
 
-### Page 5: Payment Dispatch & Digital Pass
-* **Order Summary Card**: Itemized invoice displaying ticket count, seat designations (e.g., `VIP-F11`, `VIP-F12`), convenience fees, and taxes.
-* **Idempotent Payment Trigger**: Generates a unique transaction token to prevent double-charging on network retry.
+### Route 3: `/payment` — Order Summary & Digital Gate Pass
+* **Order Summary Card**: Itemized invoice displaying ticket count, seat designations (e.g., `VIP-F11`, `VIP-F12`), cinema tax, convenience fees, and total due.
+* **Payment Dispatcher**: Credit card simulation, Apple Pay, and Google Pay with unique `idempotency_key` tracking.
 * **Digital Boarding Pass**:
   - Printable cinema pass complete with customer QR code for gate admission.
   - Movie details, hall number, screen type, and showtime schedule.
   - Print/download action to export or share pass details.
+
+### Route 4: `/login` (and `/signup`) — Authentication & Mock Credentials
+* **Sign In & Sign Up Tabs**: Tabbed interface with email, password, and cinema city preferences.
+* **Mock Credentials Panel (1-Click Fill)**:
+  - **VIP Cinephile Member**: `vip@reelcinema.com` / `reel2026`
+  - **Standard Cinephile**: `demo@reelcinema.com` / `cinema123`
+* **Guest Access**: Immediate bypass option allowing instant exploration without creating an account.
+* **Session Persistence**: User profile and tier stored locally and synchronized across navigation bars and booking flows.
 
 ---
 
@@ -267,16 +267,26 @@ reel/
 │   │   │   │   ├── MovieCard.tsx
 │   │   │   │   ├── ShowtimePill.tsx
 │   │   │   │   └── StackedCardDeck.tsx
+│   │   │   ├── layout/          # Cinematic flowing background and navigation
+│   │   │   │   ├── CinematicBackground.tsx
+│   │   │   │   └── Navbar.tsx
 │   │   │   ├── shared/          # Universal shared micro-UX components
 │   │   │   │   ├── CommandMenu.tsx
 │   │   │   │   ├── SkeletonLoader.tsx
 │   │   │   │   └── UndoToast.tsx
 │   │   │   └── ui/              # Primitive headless UI components (Drawers, etc.)
 │   │   │       └── Drawer.tsx
+│   │   ├── context/             # Global booking and auth state provider
+│   │   │   └── BookingContext.tsx
 │   │   ├── hooks/               # Custom React hooks (SSE, Optimistic holds, Prefetch)
 │   │   │   ├── useOptimisticSeat.ts
 │   │   │   ├── usePrefetch.ts
 │   │   │   └── useSSE.ts
+│   │   ├── pages/               # Multi-route page views
+│   │   │   ├── HomePage.tsx     # /home: Hero premiere and catalog discovery
+│   │   │   ├── BookingPage.tsx  # /booking: Show selection and interactive seat grid
+│   │   │   ├── PaymentPage.tsx  # /payment: Order summary and digital admission pass
+│   │   │   └── LoginPage.tsx    # /login: Sign in/up with mock credentials
 │   │   ├── services/            # API client and mock data layer
 │   │   │   ├── api.ts
 │   │   │   └── streamService.ts
@@ -284,10 +294,10 @@ reel/
 │   │   │   └── theme.css
 │   │   ├── utils/               # Class utilities (cn)
 │   │   │   └── cn.ts
-│   │   ├── App.tsx              # Main state machine and page orchestrator
+│   │   ├── App.tsx              # Router orchestrator and layout wrapper
 │   │   ├── env.d.ts             # CSS and asset module declarations
 │   │   ├── index.css            # Tailwind CSS v4 root import
-│   │   └── main.tsx             # Application DOM entry point
+│   │   └── main.tsx             # Application DOM entry point with BrowserRouter
 │   ├── index.html               # HTML document template
 │   ├── package.json             # Frontend dependencies & scripts
 │   ├── tsconfig.json            # Client TypeScript configuration
