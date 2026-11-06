@@ -35,6 +35,18 @@ EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 
+DO $$ BEGIN
+    CREATE TYPE age_rating_enum AS ENUM (
+        'G',
+        'PG',
+        'PG_13',
+        'R',
+        'NC_17'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
 -- =============================================================================
 -- 2. CORE THEATRE, SCREEN & SEAT TABLES
 -- =============================================================================
@@ -73,4 +85,46 @@ CREATE TABLE IF NOT EXISTS seats (
     price_multiplier NUMERIC(3, 2) NOT NULL DEFAULT 1.00 CHECK (price_multiplier > 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT uk_screen_seat UNIQUE (screen_id, row_identifier, seat_number)
+);
+
+-- =============================================================================
+-- 3. MOVIES CATALOG & SHOWTIMES SCHEDULING TABLES
+-- =============================================================================
+
+-- Movies Table
+CREATE TABLE IF NOT EXISTS movies (
+    movie_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(255) NOT NULL,
+    synopsis TEXT NOT NULL,
+    duration_minutes INTEGER NOT NULL CHECK (duration_minutes > 0),
+    language VARCHAR(50) NOT NULL DEFAULT 'English',
+    rating age_rating_enum NOT NULL DEFAULT 'PG_13',
+    imdb_rating NUMERIC(3, 1) CHECK (imdb_rating >= 0 AND imdb_rating <= 10.0),
+    genres TEXT[] NOT NULL DEFAULT '{}',
+    supported_formats screen_format_enum[] NOT NULL DEFAULT '{STANDARD}',
+    backdrop_url TEXT,
+    poster_url TEXT,
+    blurhash VARCHAR(100),
+    release_date DATE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT uk_movie_title UNIQUE (title)
+);
+
+-- Shows Table (Specific screen showing at a date & time slot)
+CREATE TABLE IF NOT EXISTS shows (
+    show_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    movie_id UUID NOT NULL REFERENCES movies(movie_id) ON DELETE RESTRICT,
+    screen_id UUID NOT NULL REFERENCES screens(screen_id) ON DELETE CASCADE,
+    show_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    format screen_format_enum NOT NULL,
+    base_price NUMERIC(10, 2) NOT NULL CHECK (base_price >= 0),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT chk_show_times CHECK (end_time > start_time),
+    CONSTRAINT uk_screen_show_schedule UNIQUE (screen_id, show_date, start_time)
 );
