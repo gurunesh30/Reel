@@ -206,3 +206,73 @@ CREATE TABLE IF NOT EXISTS payments (
     error_message TEXT,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- =============================================================================
+-- 5. PERFORMANCE INDEXES & AUDIT TRIGGERS
+-- =============================================================================
+
+-- Automated updated_at trigger function
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Apply triggers to tables with updated_at timestamps
+DROP TRIGGER IF EXISTS trg_theatres_updated_at ON theatres;
+CREATE TRIGGER trg_theatres_updated_at
+BEFORE UPDATE ON theatres
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_screens_updated_at ON screens;
+CREATE TRIGGER trg_screens_updated_at
+BEFORE UPDATE ON screens
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_movies_updated_at ON movies;
+CREATE TRIGGER trg_movies_updated_at
+BEFORE UPDATE ON movies
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_shows_updated_at ON shows;
+CREATE TRIGGER trg_shows_updated_at
+BEFORE UPDATE ON shows
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS trg_bookings_updated_at ON bookings;
+CREATE TRIGGER trg_bookings_updated_at
+BEFORE UPDATE ON bookings
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Spatial & Venue Lookup Indexes
+CREATE INDEX IF NOT EXISTS idx_theatres_city ON theatres (city);
+CREATE INDEX IF NOT EXISTS idx_screens_theatre_id ON screens (theatre_id);
+CREATE INDEX IF NOT EXISTS idx_seats_screen_id ON seats (screen_id);
+
+-- Movie Catalog & Search Indexes
+CREATE INDEX IF NOT EXISTS idx_movies_is_active ON movies (is_active);
+CREATE INDEX IF NOT EXISTS idx_movies_rating ON movies (rating);
+CREATE INDEX IF NOT EXISTS idx_movies_genres ON movies USING GIN (genres);
+
+-- Schedule & Calendar Query Indexes
+CREATE INDEX IF NOT EXISTS idx_shows_movie_date ON shows (movie_id, show_date);
+CREATE INDEX IF NOT EXISTS idx_shows_screen_date ON shows (screen_id, show_date);
+CREATE INDEX IF NOT EXISTS idx_shows_date_active ON shows (show_date, is_active);
+
+-- Booking & Concurrency Indexes
+CREATE INDEX IF NOT EXISTS idx_bookings_show_id ON bookings (show_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_user_email ON bookings (user_email);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings (status);
+CREATE INDEX IF NOT EXISTS idx_bookings_reference ON bookings (booking_reference);
+CREATE INDEX IF NOT EXISTS idx_booking_seats_seat_id ON booking_seats (seat_id);
+CREATE INDEX IF NOT EXISTS idx_booking_seats_show_id ON booking_seats (show_id);
+
+-- Double-Booking Prevention: Unique active seat reservation per show
+CREATE UNIQUE INDEX IF NOT EXISTS idx_no_double_booking_active_seat
+ON booking_seats (show_id, seat_id);
+
+-- Payment Idempotency & Reconciliation Indexes
+CREATE UNIQUE INDEX IF NOT EXISTS idx_payments_idempotency_key ON payments (idempotency_key);
+CREATE INDEX IF NOT EXISTS idx_payments_booking_id ON payments (booking_id);
