@@ -47,6 +47,38 @@ EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 
+DO $$ BEGIN
+    CREATE TYPE booking_status_enum AS ENUM (
+        'PENDING',
+        'CONFIRMED',
+        'CANCELLED',
+        'REFUNDED'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE payment_status_enum AS ENUM (
+        'PENDING',
+        'SUCCESS',
+        'FAILED',
+        'REFUNDED'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE payment_method_enum AS ENUM (
+        'CARD',
+        'APPLE_PAY',
+        'GOOGLE_PAY'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
 -- =============================================================================
 -- 2. CORE THEATRE, SCREEN & SEAT TABLES
 -- =============================================================================
@@ -127,4 +159,50 @@ CREATE TABLE IF NOT EXISTS shows (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CONSTRAINT chk_show_times CHECK (end_time > start_time),
     CONSTRAINT uk_screen_show_schedule UNIQUE (screen_id, show_date, start_time)
+);
+
+-- =============================================================================
+-- 4. TRANSACTIONAL BOOKINGS & IDEMPOTENT PAYMENTS TABLES
+-- =============================================================================
+
+-- Bookings Table (Header record for a user reservation)
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_reference VARCHAR(32) UNIQUE NOT NULL,
+    show_id UUID NOT NULL REFERENCES shows(show_id) ON DELETE RESTRICT,
+    user_id VARCHAR(128) NOT NULL,
+    user_email VARCHAR(255) NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    subtotal NUMERIC(10, 2) NOT NULL CHECK (subtotal >= 0),
+    tax_amount NUMERIC(10, 2) NOT NULL DEFAULT 0.00 CHECK (tax_amount >= 0),
+    convenience_fee NUMERIC(10, 2) NOT NULL DEFAULT 0.00 CHECK (convenience_fee >= 0),
+    total_amount NUMERIC(10, 2) NOT NULL CHECK (total_amount >= 0),
+    status booking_status_enum NOT NULL DEFAULT 'PENDING',
+    qr_code_payload TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Booking Seats Table (Junction table linking specific seats to a booking)
+CREATE TABLE IF NOT EXISTS booking_seats (
+    booking_seat_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID NOT NULL REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    seat_id UUID NOT NULL REFERENCES seats(seat_id) ON DELETE RESTRICT,
+    show_id UUID NOT NULL REFERENCES shows(show_id) ON DELETE RESTRICT,
+    price_paid NUMERIC(10, 2) NOT NULL CHECK (price_paid >= 0),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT uk_booking_seat UNIQUE (booking_id, seat_id)
+);
+
+-- Payments Table (Audit trail with idempotency guarantees)
+CREATE TABLE IF NOT EXISTS payments (
+    payment_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    booking_id UUID NOT NULL REFERENCES bookings(booking_id) ON DELETE RESTRICT,
+    idempotency_key VARCHAR(128) UNIQUE NOT NULL,
+    amount NUMERIC(10, 2) NOT NULL CHECK (amount >= 0),
+    payment_method payment_method_enum NOT NULL DEFAULT 'CARD',
+    status payment_status_enum NOT NULL DEFAULT 'PENDING',
+    provider_transaction_id VARCHAR(255),
+    error_message TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
