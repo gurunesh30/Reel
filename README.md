@@ -1,4 +1,4 @@
-#REEL Cinema — High-Throughput Real-Time Cinema Ticketing Platform
+# REEL Cinema — High-Throughput Real-Time Cinema Ticketing Platform
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4+-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
