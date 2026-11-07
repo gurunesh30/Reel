@@ -1,4 +1,4 @@
-# 🎬 REEL Cinema — High-Throughput Real-Time Cinema Ticketing Platform
+#REEL Cinema — High-Throughput Real-Time Cinema Ticketing Platform
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4+-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
@@ -12,7 +12,7 @@
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 1. [System Architecture & Engineering Design](#-system-architecture--engineering-design)
    - [High-Level System Topology](#high-level-system-topology)
@@ -43,7 +43,7 @@
 
 ---
 
-## 🏗️ System Architecture & Engineering Design
+## System Architecture & Engineering Design
 
 ### High-Level System Topology
 
@@ -202,7 +202,7 @@ The visual styling is anchored in a high-contrast dark aesthetic combining deep 
 
 ---
 
-## 🧭 End-to-End Walkthrough & Route Architecture
+##  End-to-End Walkthrough & Route Architecture
 
 The application is structured into distinct, deep-linkable client routes powered by React Router:
 
@@ -246,7 +246,7 @@ The application is structured into distinct, deep-linkable client routes powered
 
 ---
 
-## 📂 Repository Directory Structure
+##  Repository Directory Structure
 
 ```
 reel/
@@ -327,7 +327,7 @@ reel/
 
 ---
 
-## 🚀 Getting Started & Local Setup
+##  Getting Started & Local Setup
 
 ### Prerequisites
 
@@ -421,7 +421,7 @@ npm run preview
 
 ---
 
-## 🤝 Contribution Guidelines & Engineering Principles
+##  Contribution Guidelines & Engineering Principles
 
 We welcome contributions! To maintain code cleanliness, reliability, and architectural consistency across the repository, all contributors must adhere to the following principles.
 
@@ -497,6 +497,6 @@ Before opening a PR, ensure the following checks are complete:
 
 ---
 
-## 📜 License
+##  License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
